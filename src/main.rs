@@ -13,7 +13,7 @@ struct WorkspaceCustom {
     pub windows: u16,
 }
 
-const ICONS: [&str;8] = ["󰇊 ", "󰇋 ", "󰇌 ", "󰇍 ", "󰇎 ", "󰇏 ", "󰎃 ", "󰋌 "];
+const ICONS: [&str;8] = ["󰑊 ", "󰑊 ", "󰑊 ", "󰑊 ", "󰑊 ", "󰑊 ", "󰑊 ", "󰑊 "];
 
 fn output()  {
     let workspaces: Vec<_> = Workspaces::get().expect("Unable to get workspaces").to_vec();
@@ -31,10 +31,14 @@ fn output()  {
     }
 
     for workspace in workspaces.iter() {
+        out_workspaces[workspace.id as usize - 1].windows = workspace.windows;
+        if workspace.windows > 0 {
+            out_workspaces[workspace.id as usize - 1].name = "󰊠 ".to_string();
+        }
         if active_workspace_id == workspace.id {
+            out_workspaces[workspace.id as usize - 1].name = "󰮯 ".to_string();
             out_workspaces[workspace.id as usize - 1].active = true;
         }
-        out_workspaces[workspace.id as usize - 1].windows = workspace.windows;
     }
 
     println!("{}", json!(out_workspaces).to_string());
