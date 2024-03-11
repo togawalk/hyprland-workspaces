@@ -1,4 +1,4 @@
-use hyprland::data::{Workspaces, Workspace};
+use hyprland::data::{Workspace, Workspaces};
 use hyprland::event_listener::EventListenerMutable as EventListener;
 use hyprland::prelude::*;
 use hyprland::Result;
@@ -13,17 +13,21 @@ struct WorkspaceCustom {
     pub windows: u16,
 }
 
-const ICONS: [&str;8] = ["󰑊 ", "󰑊 ", "󰑊 ", "󰑊 ", "󰑊 ", "󰑊 ", "󰑊 ", "󰑊 "];
+const ICONS: [&str; 8] = ["󰑊 ", "󰑊 ", "󰑊 ", "󰑊 ", "󰑊 ", "󰑊 ", "󰑊 ", "󰑊 "];
 
-fn output()  {
-    let workspaces: Vec<_> = Workspaces::get().expect("Unable to get workspaces").to_vec();
-    let active_workspace_id = Workspace::get_active().expect("Unable to get active workspace").id;
+fn output() {
+    let workspaces: Vec<_> = Workspaces::get()
+        .expect("Unable to get workspaces")
+        .to_vec();
+    let active_workspace_id = Workspace::get_active()
+        .expect("Unable to get active workspace")
+        .id;
     let mut out_workspaces: Vec<WorkspaceCustom> = Vec::new();
 
     for i in 1..=ICONS.len() {
         let ws: WorkspaceCustom = WorkspaceCustom {
             id: i as i32,
-            name: ICONS[i-1].to_string(),
+            name: ICONS[i - 1].to_string(),
             active: false,
             windows: 0,
         };
